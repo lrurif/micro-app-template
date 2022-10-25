@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "pnpm run --parallel serve",
+    "dev": "pnpm run --parallel serve",
     "build": "pnpm run --parallel build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@micro-zoe/micro-app": "^0.8.10",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"

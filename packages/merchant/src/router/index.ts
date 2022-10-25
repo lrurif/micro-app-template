@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory((window as any).__MICRO_APP_BASE_ROUTE__ || process.env.BASE_URL),
   routes,
 });
 
