@@ -1,6 +1,11 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import { createPinia } from "pinia";
 import router from "./router";
-import microApp from "@micro-zoe/micro-app"
+import microApp from "@micro-zoe/micro-app";
+import "@monorepo/share/style/normalize.css";
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+const pinia = createPinia();
 microApp.start();
-createApp(App).use(router).mount("#app");
+createApp(App).use(router).use(ElementPlus).use(pinia).mount("#app");
