@@ -1,29 +1,50 @@
-import { type AxiosRequestConfig, AxiosInstance } from "axios";
+import { AxiosRequestConfig, AxiosInstance } from "axios";
+import { InterceptorsType } from "./type";
 interface ResType<T> {
-    code: number
-    data?:T
-    msg: string
-    err?: string
+    code: number;
+    data?: T;
+    msg: string;
+    err?: string;
 }
-export function addInterceptors(axiosInstance: AxiosInstance): void {
-	axiosInstance.interceptors.request.use(
-		(config: AxiosRequestConfig) => {
-			config.params = {
-				...config.params,
-				t: Date.now(),
-			};
-			return config;
-		},
-		(error) => {
-			return Promise.reject(error);
-		}
-	);
-	axiosInstance.interceptors.response.use(
-		(response) => {
-			return response;
-		},
-		(error) => {
-			return Promise.reject(error);
-		}
-	);
+/**
+ * axios添加拦截器
+ * @param axiosInstance axios实例
+ * @param interceptors 拦截器对象
+ */
+export function addInterceptors(
+    axiosInstance: AxiosInstance,
+    interceptors?: InterceptorsType
+): void {
+    const requestInterceptor =
+        interceptors?.requestInterceptor ||
+        ((config: AxiosRequestConfig) => {
+            config.params = {
+                ...config.params,
+                t: Date.now(),
+            };
+            return config;
+        });
+    const requestInterceptorCatch =
+        interceptors?.requestInterceptorCatch ||
+        ((error) => {
+            return Promise.reject(error);
+        });
+    const responseInterceptor =
+        interceptors?.responseInterceptor ||
+        ((response) => {
+            return response;
+        });
+    const responseInterceptorCatch =
+        interceptors?.responseInterceptorCatch ||
+        ((error) => {
+            return Promise.reject(error);
+        });
+    axiosInstance.interceptors.request.use(
+        requestInterceptor,
+        requestInterceptorCatch
+    );
+    axiosInstance.interceptors.response.use(
+        responseInterceptor,
+        responseInterceptorCatch
+    );
 }
