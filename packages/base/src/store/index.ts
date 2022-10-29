@@ -3,6 +3,7 @@ export interface MainStore {
     token: string;
 }
 export const mainStore = defineStore("main", {
+    persist: true,
     state: (): MainStore => {
         return {
             token: "",

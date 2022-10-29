@@ -118,6 +118,9 @@ let toggleStatus = () => {
 };
 const loginIn = () => {
     const store = mainStore();
+    setInterval(() => {
+        console.log(store.token);
+    }, 1000)
     store.setToken("token");
     router.push("/");
 };
