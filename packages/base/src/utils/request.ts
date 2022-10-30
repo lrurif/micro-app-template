@@ -1,10 +1,17 @@
 import { createAxiosInstance } from "@monorepo/share/utils/http/axios";
-import { AxiosResponse, AxiosRequestConfig } from "axios";
+import type { AxiosResponse, AxiosRequestConfig } from "axios";
+const requestBaseUrl: string =
+    process.env.NODE_ENV === "development"
+        ? process.env.VUE_APP_BASE_URL
+        : window.location.origin;
 const axiosInstance = createAxiosInstance({
-    baseURL: process.env.VUE_APP_BASE_URL,
+    baseURL: requestBaseUrl,
 });
+/**
+ * 如果请求参数和url一样，则返回相同的promise
+ */
 const abortControllers = new Map<string, Promise<AxiosResponse>>();
-function getPendingKey(config): string {
+function getPendingKey(config: AxiosRequestConfig): string {
     let { data } = config;
     const { url, method, params } = config;
     if (typeof data === "string") data = JSON.parse(data);

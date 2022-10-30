@@ -1,4 +1,3 @@
-// const Icons = require("unplugin-icons/webpack");
 const path = require("path");
 const AutoImport = require("unplugin-auto-import/webpack");
 const Components = require("unplugin-vue-components/webpack");
@@ -13,6 +12,18 @@ module.exports = {
             "Access-Control-Allow-Origin": "*",
         },
     },
+    chainWebpack: (config) => {
+        config.module
+            .rule("vue")
+            .use("vue-loader")
+            .tap((options) => {
+                options.compilerOptions = {
+                    ...(options.compilerOptions || {}),
+                    isCustomElement: (tag) => /^micro-app/.test(tag),
+                };
+                return options;
+            });
+    },
     configureWebpack: {
         plugins: [
             AutoImport({
@@ -25,17 +36,19 @@ module.exports = {
                 version: 3,
                 resolvers: [ElementPlusResolver()],
             }),
-            //   Icons({
-            //     compiler: "vue3",
-            //     // 自动安装
-            //     autoInstall: true,
-            //   }),
         ],
         resolve: {
-            extensions: [".js", ".vue", ".json"], //这个是匹配扩展名的
+            extensions: [".js", ".vue", ".json"],
             alias: {
-                "@": resolve("src"), //src解析成@
-                assets: resolve("src/assets"), // src/assets解析成assets
+                "@": resolve("src"),
+                assets: resolve("src/assets"),
+            },
+        },
+    },
+    css: {
+        loaderOptions: {
+            sass: {
+                prependData: `@import "@monorepo/share/style/index.scss";`, // 全局导入scss混入
             },
         },
     },

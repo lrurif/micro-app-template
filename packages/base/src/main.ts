@@ -4,8 +4,8 @@ import router from "./router";
 import microApp from "@micro-zoe/micro-app";
 import "@monorepo/share/style/normalize.css";
 import installPinia from "@monorepo/share/plugins/pinia";
-// import ElementPlus from "element-plus";
-// import "element-plus/dist/index.css";
+
+
 microApp.start();
 const vm = createApp(App);
 installPinia(vm);

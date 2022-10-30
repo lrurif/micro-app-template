@@ -3,7 +3,6 @@ import {
     createWebHistory,
     Router,
     RouteRecordRaw,
-    RouteRecordName
 } from "vue-router";
 import Home from "@/views/Home.vue";
 import NotFound from "@monorepo/share/components/404/index.vue";

@@ -14,6 +14,7 @@
                         </el-icon>
                         <input
                             class="login-input"
+                            v-model="loginForm.userName"
                             type="text"
                             placeholder="请输入账号"
                         />
@@ -28,6 +29,7 @@
                         </el-icon>
                         <input
                             class="login-input"
+                            v-model="loginForm.password"
                             type="password"
                             placeholder="请输入密码"
                         />
@@ -106,7 +108,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { User, Unlock, Message } from "@element-plus/icons-vue";
 import { mainStore } from "@/store/index";
 import { useRouter } from "vue-router";
@@ -116,13 +118,19 @@ let isLoginStatus = ref(true);
 let toggleStatus = () => {
     isLoginStatus.value = !isLoginStatus.value;
 };
-const loginIn = () => {
-    const store = mainStore();
-    setInterval(() => {
-        console.log(store.token);
-    }, 1000)
-    store.setToken("token");
-    router.push("/");
+let loginForm = reactive({
+    userName: "",
+    password: "",
+});
+const loginIn = async () => {
+    try {
+        const store = mainStore();
+        let data: any = await login(loginForm);
+        store.setToken(data.token || "temp token");
+        router.push("/");
+    } catch (e) {
+        console.log(e, "error");
+    }
 };
 </script>
 <style lang="scss">

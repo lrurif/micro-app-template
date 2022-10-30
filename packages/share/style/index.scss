@@ -1,0 +1,36 @@
+@import "./mixin.scss";
+$main-color: rgb(10, 152, 253);
+
+$flex-jc: (
+    'start': flex-start,
+    'end': flex-end,
+    'center': center,
+    'between': space-between,
+    'around': space-around,
+    'evenly': space-evenly
+);
+$flex-ai: (
+    'start': flex-start,
+    'end': flex-end,
+    'center': center,
+    'stretch': stretch,
+    'baseline': baseline
+);
+
+@each $flexKey,
+$flexValue in $flex-jc {
+    .jc-#{$flexKey} {
+        justify-content: $flexValue;
+    }
+}
+
+@each $flexKey,
+$flexValue in $flex-ai {
+    .ai-#{$flexKey} {
+        align-items: $flexValue;
+    }
+}
+
+.flex {
+    display: flex;
+}
