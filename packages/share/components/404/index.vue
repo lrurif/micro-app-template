@@ -438,8 +438,8 @@
 </template>
 <script lang="ts">
 export default {
-    name: '404'
-}
+    name: "404",
+};
 </script>
 <style lang="scss">
 .cls-1 {

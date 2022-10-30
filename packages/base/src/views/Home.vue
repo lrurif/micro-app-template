@@ -1,7 +1,10 @@
 <template>
     <div class="home">
         <div class="nav flex jc-between ai-center">
-            <div class="nav__left flex jc-center ai-center" @click="navigateToIndex">
+            <div
+                class="nav__left flex jc-center ai-center"
+                @click="navigateToIndex"
+            >
                 <img src="../assets/logo.png" class="logo" />
                 <span class="merchant-name">商户名称</span>
             </div>
@@ -28,7 +31,7 @@
 import { mainStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
-import empty from "@/layout/empty.vue"
+import empty from "@/layout/empty.vue";
 const store = mainStore();
 
 const router = useRouter();
@@ -40,8 +43,8 @@ const loginOut = () => {
 };
 const { token } = storeToRefs(store);
 const navigateToIndex = () => {
-    router.push("/")
-}
+    router.push("/");
+};
 </script>
 <style lang="scss">
 .nav {
