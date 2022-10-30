@@ -436,7 +436,11 @@
         </div>
     </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts">
+export default {
+    name: '404'
+}
+</script>
 <style lang="scss">
 .cls-1 {
     fill: #ffc541;
