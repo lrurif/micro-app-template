@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        <main-wrapper></main-wrapper>
         <micro-app
             name="dataCenter"
             :url="url"
@@ -10,8 +11,11 @@
     </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import mainWrapper from "@/layout/index.vue";
+
 import microApp from "@micro-zoe/micro-app";
+import { useRouter } from "vue-router"
 microApp.setData("dataCenter", { type: "新的数据" });
 const url: string =
     process.env.NODE_ENV === "development"
@@ -21,13 +25,5 @@ const url: string =
 const handleDataChange = (e: unknown) => {
     console.log(e, "handleDataChange");
 };
-
-export default {
-    setup() {
-        return {
-            handleDataChange,
-            url,
-        };
-    },
-};
+console.log(useRouter(), 'useRouter')
 </script>
