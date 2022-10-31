@@ -1,7 +1,7 @@
 <template>
-    <top-nav></top-nav>
+    <Navbar></Navbar>
 </template>
 <script lang="ts" setup>
-import topNav from "./components/top-nav.vue";
+import Navbar from "./components/Navbar.vue";
 </script>
 <style lang="scss"></style>

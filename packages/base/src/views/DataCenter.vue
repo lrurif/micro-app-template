@@ -12,9 +12,7 @@
 
 <script lang="ts">
 import microApp from "@micro-zoe/micro-app";
-
 microApp.setData("dataCenter", { type: "新的数据" });
-
 const url: string =
     process.env.NODE_ENV === "development"
         ? "http://localhost:9002/data-center"
