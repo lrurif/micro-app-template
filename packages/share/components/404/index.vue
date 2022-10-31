@@ -495,15 +495,20 @@ export default {
     flex-direction: column;
     align-items: center;
     .back-text {
-        padding: 10px 20px;
         text-align: center;
         cursor: pointer;
         border-radius: 20px;
         background-color: rgb(0, 187, 255);
         a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 10px 20px;
             color: #fff;
             font-size: 14px;
             text-decoration: none;
+            text-align: center;
         }
     }
 }

@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "dev": "pnpm run --parallel serve",
+    "base:dev": "pnpm run --filter @monorepo/base dev",
+    "dev": "pnpm run --parallel dev",
     "build": "pnpm run --parallel build"
   },
   "keywords": [],

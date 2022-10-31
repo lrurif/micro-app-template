@@ -19,7 +19,9 @@ function getPendingKey(config: AxiosRequestConfig): string {
         "&"
     );
 }
-export function request(data: AxiosRequestConfig): Promise<AxiosResponse> {
+export const request = function (
+    data: AxiosRequestConfig
+): Promise<AxiosResponse> {
     const key = getPendingKey(data);
     if (abortControllers.has(key)) return abortControllers.get(key);
     const promise = axiosInstance(data);
@@ -28,4 +30,5 @@ export function request(data: AxiosRequestConfig): Promise<AxiosResponse> {
     });
     abortControllers.set(key, promise);
     return promise;
-}
+};
+

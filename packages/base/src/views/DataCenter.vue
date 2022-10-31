@@ -25,7 +25,7 @@ const handleDataChange = (e: unknown) => {
 };
 
 export default {
-    setup(): any {
+    setup() {
         return {
             handleDataChange,
             url,
