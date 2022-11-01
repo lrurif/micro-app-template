@@ -8,6 +8,7 @@ export default [
             name: "用户中心",
             permission: ["admin"],
         },
+        
         children: [
             {
                 path: "user-list-out",
@@ -17,6 +18,9 @@ export default [
                     permission: ["admin"],
                 },
                 component: empty,
+                redirect: {
+                    name: "userList"
+                },
                 children: [
                     {
                         path: "user-list",

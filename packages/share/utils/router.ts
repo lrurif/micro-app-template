@@ -9,3 +9,17 @@ export function filterRouter(routes, userRole) {
     });
     return res;
 }
+
+export function getSideBarData(routes) {
+    routes.forEach(route => {
+        if (Array.isArray(route.children)) {
+            console.log(route, route.children?.[0].meta?.name)
+            if(!route.children?.[0].meta?.name) {
+                route.children = []
+            }else {
+                getSideBarData(route.children)
+            }
+        }
+    })
+    return routes;
+}

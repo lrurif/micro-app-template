@@ -12,17 +12,13 @@ import { useMainStore } from "@/store/index";
 import userCenter from "./children/user-center";
 import overviewPage from "./children/overview-page";
 // 异步路由 -end
-import { filterRouter } from "@monorepo/share/utils/router";
+const ROUTE_ROOT_NAME = "Home"
+import { filterRouter,getSideBarData } from "@monorepo/share/utils/router";
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
-        name: "Home",
+        name: ROUTE_ROOT_NAME,
         component: Home,
-    },
-    {
-        path: "/about",
-        name: "about",
-        component: () => import("@/views/About.vue"),
     },
     {
         path: "/404",
@@ -41,9 +37,12 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
 
 setTimeout(() => {
     const permissionRoutes = filterRouter(asyncRoutes, "admin");
+    const tempRoutes = JSON.parse(JSON.stringify(permissionRoutes))
+    const res = getSideBarData(tempRoutes)
     const store = useMainStore();
     store.setPermissionRoutes(permissionRoutes);
-    console.log(permissionRoutes, "hhhh");
+    store.setAsyncRoutes(res);
+    insertRoutes(router, permissionRoutes)
 }, 1000);
 
 const router: Router = createRouter({
@@ -53,6 +52,11 @@ const router: Router = createRouter({
     routes,
 });
 
+const insertRoutes = (router: Router, asyncRoutes) => {
+    asyncRoutes.forEach((route) => {
+        router.addRoute(ROUTE_ROOT_NAME, route)
+    });
+}
 const clearRoutes = (router: Router, asyncRoutes: RouteRecordRaw[]) => {
     asyncRoutes.forEach((route) => {
         if (route.name) {

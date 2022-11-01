@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-menu>
-            <Menubar :routes="permissionRoutes"></Menubar>
+            <Menubar :routes="asyncRoutes"></Menubar>
         </el-menu>
     </div>
 </template>
@@ -10,5 +10,5 @@ import Menubar from "./Menubar.vue";
 import { useMainStore } from "@/store";
 import { storeToRefs } from "pinia";
 const store = useMainStore();
-const { permissionRoutes } = storeToRefs(store);
+const { asyncRoutes } = storeToRefs(store);
 </script>

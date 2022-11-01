@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import {RouteRecordRaw} from "vue-router"
 export interface MainStore {
     token: string;
-    permissionRoutes: RouteRecordRaw[]
+    permissionRoutes: RouteRecordRaw[],
+    asyncRoutes: RouteRecordRaw[]
 }
 export const useMainStore = defineStore("main", {
     persist: true,
@@ -10,6 +11,7 @@ export const useMainStore = defineStore("main", {
         return {
             token: "",
             permissionRoutes: [],
+            asyncRoutes: [],
         };
     },
     actions: {
@@ -18,6 +20,9 @@ export const useMainStore = defineStore("main", {
         },
         setPermissionRoutes(value) {
             this.permissionRoutes = value;
+        },
+        setAsyncRoutes(value) {
+            this.asyncRoutes = value;
         }
     },
 });

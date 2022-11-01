@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="route in routes" :key="route.name">
-            <template v-if="route.children">
+            <template v-if="route.children && route.children.length > 0">
                 <el-sub-menu :index="route.name">
                     <template #title>
                         <span>{{ route.meta.name }}</span>
