@@ -1,14 +1,9 @@
 <template>
     <div class="home">
-        <img alt="Vue logo" src="../assets/logo.png" />
+      <home-layout></home-layout>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-    name: "Home",
-    components: {},
-});
+<script lang="ts" setup>
+import HomeLayout from "@/layout/index.vue"
 </script>

@@ -1,9 +1,4 @@
 <template>
-    <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-        数据中心页面
-    </div>
     <router-view />
 </template>
 <script lang="ts" setup>

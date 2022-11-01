@@ -4,7 +4,7 @@ export interface MainStore {
     token: string;
     permissionRoutes: RouteRecordRaw[]
 }
-export const mainStore = defineStore("main", {
+export const useMainStore = defineStore("main", {
     persist: true,
     state: (): MainStore => {
         return {
@@ -16,5 +16,8 @@ export const mainStore = defineStore("main", {
         setToken(token: string) {
             this.token = token;
         },
+        setPermissionRoutes(value) {
+            this.permissionRoutes = value;
+        }
     },
 });

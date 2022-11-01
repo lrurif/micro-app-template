@@ -1,7 +1,10 @@
 <template>
-    <Navbar></Navbar>
+    导航栏
+    <Sidebar></Sidebar>
 </template>
 <script lang="ts" setup>
-import Navbar from "./components/Navbar.vue";
+import { Sidebar } from "./components"
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+
+</style>
