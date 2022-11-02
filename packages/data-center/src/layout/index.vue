@@ -1,5 +1,4 @@
 <template>
-    导航栏
     <Sidebar></Sidebar>
 </template>
 <script lang="ts" setup>

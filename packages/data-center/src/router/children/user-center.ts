@@ -8,7 +8,6 @@ export default [
             name: "用户中心",
             permission: ["admin"],
         },
-        
         children: [
             {
                 path: "user-list-out",
@@ -31,6 +30,9 @@ export default [
                     {
                         path: "operate-user",
                         name: "operateUser",
+                        meta: {
+                            name: "新增/编辑用户"
+                        },
                         component: () =>
                             import("@/views/user-center/OperateUser.vue"),
                     },

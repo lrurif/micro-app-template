@@ -2,13 +2,22 @@ import "./publicPath.ts";
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import microApp from "@micro-zoe/micro-app";
 import "@monorepo/share/style/normalize.css";
 import installPinia from "@monorepo/share/plugins/pinia";
+import { useMainStore } from "@/store/index";
 
-
-microApp.start();
+const dataListener = () => {
+    const store = useMainStore();
+    store.setUserRole("");
+    store.setActiveRouteName("");
+    store.setPermissionRoutes([]);
+    store.setAsyncRoutes([]);
+};
+// 监听卸载操作
+window.addEventListener("unmount", dataListener);
+window?.microApp?.addDataListener(() => {
+    dataListener();
+});
 const vm = createApp(App);
 installPinia(vm);
 vm.use(router).mount("#app");
-

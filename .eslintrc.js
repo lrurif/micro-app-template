@@ -19,7 +19,8 @@ module.exports = {
       "@typescript-eslint/ban-ts-comment": "off",
       "indent": ['error', 4],
       '@typescript-eslint/no-var-requires': 'off',
-      "@typescript-eslint/no-explicit-any": ["off"]
+      "@typescript-eslint/no-explicit-any": ["off"],
+      "@typescript-eslint/explicit-module-boundary-types": "off"
     },
   };
   

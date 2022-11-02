@@ -6,7 +6,7 @@ export default [
         component: empty,
         meta: {
             name: "首页概览",
-            permission: ['admin'],
+            permission: ["admin"],
         },
         children: [
             {
@@ -16,7 +16,8 @@ export default [
                     name: "数据看板",
                     permission: ["admin"],
                 },
-                component: () => import("@/views/overview-page/DataOverview.vue"),
+                component: () =>
+                    import("@/views/overview-page/DataOverview.vue"),
             },
             {
                 path: "trade-data",
