@@ -19,7 +19,7 @@ import { useRouter } from "vue-router";
 microApp.setData("dataCenter", { type: "新的数据" });
 const url: string =
     process.env.NODE_ENV === "development"
-        ? "http://localhost:9002/data-center"
+        ? "http://192.168.10.4:9002/data-center"
         : "";
 
 const handleDataChange = (e: unknown) => {

@@ -12,11 +12,15 @@
 </template>
 <script lang="ts" setup>
 import { mainStore } from "@/store";
+import microApp from "@micro-zoe/micro-app";
 import { useRouter } from "vue-router";
 const store = mainStore();
 
 const router = useRouter();
 const loginOut = () => {
+    microApp.setData("dataCenter", {
+        type: "destroy",
+    });
     store.setToken("");
     router.push({
         name: "login",
