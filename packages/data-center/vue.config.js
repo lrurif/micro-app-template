@@ -28,7 +28,7 @@ module.exports = {
         plugins: [
             AutoImport({
                 resolvers: [ElementPlusResolver()],
-                imports: ["vue", "vue-router", "pinia"],
+                imports: ["vue", "vue-router", "pinia"]
             }),
             Components({
                 dirs: ["src/components"],

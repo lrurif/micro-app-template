@@ -8,4 +8,5 @@
 
 <script lang="ts" setup>
 import HomeLayout from "@/layout/index.vue";
+import empty from "@/layout/empty.vue"
 </script>

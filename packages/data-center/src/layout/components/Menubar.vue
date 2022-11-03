@@ -20,14 +20,14 @@
 </template>
 <script lang="ts" setup>
 import { defineProps, withDefaults } from "vue";
-import { RouteRecordRaw } from "vue-router";
+import { useRouter, RouteRecordRaw } from "vue-router";
 interface Props {
     routes: RouteRecordRaw[];
 }
+
 const props = withDefaults(defineProps<Props>(), {
     routes: () => [],
 });
-console.log('123');
 const router = useRouter();
 const handleMenuClick = (instance) => {
     router.push({

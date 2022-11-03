@@ -1,5 +1,11 @@
 import { defineStore } from "pinia";
 import { RouteRecordRaw } from "vue-router";
+import {
+    filterRouter,
+    getSideBarData,
+    insertRoutes,
+} from "@monorepo/share/utils/router";
+import router, { rootRoute, asyncRoutes } from "@/router"
 export interface MainStore {
     token: string;
     permissionRoutes: RouteRecordRaw[];
@@ -33,6 +39,24 @@ export const useMainStore = defineStore("data-center", {
         },
         setActiveRouteName(value) {
             this.activeRouteName = value;
+        },
+        async getUserPermission() {
+            const mockPromise = function () {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(1);
+                    },);
+                });
+            };
+            // const res = await 请求api
+            await mockPromise();
+            this.setUserRole("admin");
+            const permissionRoutes = filterRouter(asyncRoutes, this.userRole); // 获取权限内路由
+            const copyRoutes = JSON.parse(JSON.stringify(permissionRoutes));
+            const res = getSideBarData(copyRoutes); // 获取左侧菜单栏所需数据
+            this.setPermissionRoutes(permissionRoutes);
+            this.setAsyncRoutes(res);
+            insertRoutes(router, permissionRoutes, rootRoute);
         },
     },
 });

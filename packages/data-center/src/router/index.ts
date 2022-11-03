@@ -13,12 +13,7 @@ import userCenter from "./children/user-center";
 import overviewPage from "./children/overview-page";
 // 异步路由 -end
 const ROUTE_ROOT_NAME = "Home";
-import {
-    filterRouter,
-    getSideBarData,
-    insertRoutes,
-} from "@monorepo/share/utils/router";
-const rootRoute = {
+export const rootRoute = {
     path: "/",
     name: ROUTE_ROOT_NAME,
     component: Home,
@@ -29,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/404",
         name: "404",
         component: NotFound,
-    },
+    }
 ];
 export const asyncRoutes: Array<RouteRecordRaw> = [
     ...overviewPage,
@@ -48,19 +43,11 @@ const router: Router = createRouter({
     routes,
 });
 
-const mockPromise = function () {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const store = useMainStore();
-            store.setUserRole("admin");
-            console.log("展示");
-            resolve(1);
-        }, 1000);
-    });
-};
+
+
 router.beforeEach(async (to, from, next) => {
     const store = useMainStore();
-    const whiteList: (string | symbol)[] = ["404"];
+    const whiteList: (string | symbol)[] = ["404", "login"];
     const hasWhite: boolean = whiteList.includes(to.name);
     if (hasWhite) {
         next();
@@ -69,13 +56,7 @@ router.beforeEach(async (to, from, next) => {
             next();
         } else {
             try {
-                await mockPromise();
-                const permissionRoutes = filterRouter(asyncRoutes, "admin");
-                const copyRoutes = JSON.parse(JSON.stringify(permissionRoutes));
-                const res = getSideBarData(copyRoutes);
-                store.setPermissionRoutes(permissionRoutes);
-                store.setAsyncRoutes(res);
-                insertRoutes(router, permissionRoutes, rootRoute);
+                await store.getUserPermission();
                 next({
                     ...to,
                 });
