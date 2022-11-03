@@ -7,6 +7,7 @@ export default [
         meta: {
             name: "用户中心",
             permission: ["admin"],
+            icon: "icon-user",
         },
         children: [
             {

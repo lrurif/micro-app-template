@@ -6,7 +6,7 @@ const resolve = (dir) => path.join(__dirname, ".", dir);
 module.exports = {
     publicPath: "/data-center/",
     devServer: {
-        open: true,
+        open: false,
         port: 9002,
         headers: {
             "Access-Control-Allow-Origin": "*",
@@ -28,7 +28,7 @@ module.exports = {
         plugins: [
             AutoImport({
                 resolvers: [ElementPlusResolver()],
-                imports: ["vue", "vue-router", "pinia"]
+                imports: ["vue", "vue-router", "pinia"],
             }),
             Components({
                 dirs: ["src/components"],

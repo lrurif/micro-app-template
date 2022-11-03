@@ -3,7 +3,9 @@
         <template v-if="route.children && route.children.length > 0">
             <el-sub-menu :index="route.name">
                 <template #title>
-                    <el-icon><location /></el-icon>
+                    <el-icon
+                        ><i :class="['iconfont', route?.meta.icon]"></i
+                    ></el-icon>
                     <span>{{ route.meta.name }}</span>
                 </template>
                 <Menubar :routes="route.children"></Menubar>
@@ -17,12 +19,15 @@
     </template>
 </template>
 <script lang="ts" setup>
-import { defineProps } from "vue";
-import { useRouter } from "vue-router";
-import { Location } from "@element-plus/icons-vue";
-const props = defineProps({
-    routes: Array,
+import { defineProps, withDefaults } from "vue";
+import { RouteRecordRaw } from "vue-router";
+interface Props {
+    routes: RouteRecordRaw[];
+}
+const props = withDefaults(defineProps<Props>(), {
+    routes: () => [],
 });
+console.log('123');
 const router = useRouter();
 const handleMenuClick = (instance) => {
     router.push({

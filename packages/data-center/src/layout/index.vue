@@ -9,23 +9,17 @@
             <Breadcrumb @toggle="toggleStatus"></Breadcrumb>
             <div class="content">
                 <slot></slot>
-
             </div>
         </div>
     </div>
 </template>
 <script lang="ts" setup>
 import { Sidebar, Breadcrumb } from "./components";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 const home = ref(null);
-onMounted(() => {
-    // let nav: HTMLDivElement = document.querySelector(".nav");
-    // let height = nav.clientHeight;
-    // home.value.style.height = `calc(100vh - ${height})`;
-});
 const toggleStatus = () => {
     isCollapse.value = !isCollapse.value;
-}
+};
 const isCollapse = ref(false);
 </script>
 <style lang="scss" scoped>

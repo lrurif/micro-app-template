@@ -6,6 +6,9 @@
       "@/*": [
         "src/*"
       ]
-    }
+    },
   },
+  "include": [
+    "./auto-imports.d.ts",
+  ],
 }

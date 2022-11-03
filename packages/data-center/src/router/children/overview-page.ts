@@ -7,6 +7,7 @@ export default [
         meta: {
             name: "首页概览",
             permission: ["admin"],
+            icon: "icon-index",
         },
         children: [
             {
