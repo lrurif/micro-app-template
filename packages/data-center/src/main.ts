@@ -3,8 +3,10 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import "@monorepo/share/style/normalize.css";
+import "@monorepo/share/style/iconfont.css";
 import installPinia from "@monorepo/share/plugins/pinia";
 import { useMainStore } from "@/store/index";
+import 'element-plus/dist/index.css'
 
 const dataListener = () => {
     const store = useMainStore();

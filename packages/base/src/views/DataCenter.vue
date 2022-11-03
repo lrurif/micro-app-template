@@ -1,13 +1,14 @@
 <template>
     <div class="home">
-        <main-wrapper></main-wrapper>
-        <micro-app
-            name="dataCenter"
-            :url="url"
-            baseroute="/micro/data-center"
-            @datachange="handleDataChange"
-        >
-        </micro-app>
+        <main-wrapper>
+            <micro-app
+                name="dataCenter"
+                :url="url"
+                baseroute="/micro/data-center"
+                @datachange="handleDataChange"
+            >
+            </micro-app>
+        </main-wrapper>
     </div>
 </template>
 
@@ -19,11 +20,11 @@ import { useRouter } from "vue-router";
 microApp.setData("dataCenter", { type: "新的数据" });
 const url: string =
     process.env.NODE_ENV === "development"
-        ? "http://192.168.10.4:9002/data-center"
+        ? "http://localhost:9002/data-center"
         : "";
 
 const handleDataChange = (e: unknown) => {
     console.log(e, "handleDataChange");
 };
-console.log(useRouter(), "useRouter");
 </script>
+<style></style>

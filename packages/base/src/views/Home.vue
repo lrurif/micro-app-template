@@ -1,20 +1,21 @@
 <template>
-    <div class="home">
-        <main-wrapper></main-wrapper>
-        <div class="content">
-            <div class="app-wrapper flex ai-center">
-                <div class="app-block flex ai-center jc-center">
-                    <router-link to="/data-center/">数据中心</router-link>
-                </div>
-                <div class="app-block flex ai-center jc-center">
-                    <router-link to="/merchant/">商户中心</router-link>
-                </div>
-                <div class="app-block flex ai-center jc-center">
-                    <router-link to="/404">404</router-link>
+    <div class="home flex">
+        <main-wrapper>
+            <div class="content">
+                <div class="app-wrapper flex ai-center">
+                    <div class="app-block flex ai-center jc-center">
+                        <router-link to="/data-center/">数据中心</router-link>
+                    </div>
+                    <div class="app-block flex ai-center jc-center">
+                        <router-link to="/merchant/">商户中心</router-link>
+                    </div>
+                    <div class="app-block flex ai-center jc-center">
+                        <router-link to="/404">404</router-link>
+                    </div>
                 </div>
             </div>
-        </div>
-        <empty></empty>
+            <empty></empty>
+        </main-wrapper>
     </div>
 </template>
 
@@ -22,7 +23,16 @@
 import empty from "@/layout/empty.vue";
 import mainWrapper from "@/layout/index.vue";
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+.home {
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    .content {
+        flex: 1;
+        min-height: 0;
+    }
+}
 .app-wrapper {
     flex-wrap: wrap;
 }

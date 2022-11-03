@@ -1,6 +1,7 @@
 @import "./mixin.scss";
 $main-color: rgb(10, 152, 253);
 
+
 $flex-jc: (
     'start': flex-start,
     'end': flex-end,
@@ -33,4 +34,8 @@ $flexValue in $flex-ai {
 
 .flex {
     display: flex;
+}
+.flex-column {
+    flex-direction: column;
+    @extend .flex;
 }

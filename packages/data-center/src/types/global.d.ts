@@ -1,10 +1,12 @@
 declare global {
-  interface Window {
-    microApp?: any;
-    __MICRO_APP_NAME__?: string;
-    __MICRO_APP_ENVIRONMENT__?: string;
-    __MICRO_APP_BASE_ROUTE__?: string;
-  }
+    interface Window {
+        microApp?: any;
+        __MICRO_APP_NAME__?: string;
+        __MICRO_APP_ENVIRONMENT__?: string;
+        __MICRO_APP_BASE_ROUTE__?: string;
+        openMenu: any;
+        closeMenu: any;
+    }
 }
 export {};
 // // 另一种方法，不能导出-start

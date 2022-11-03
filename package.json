@@ -1,7 +1,7 @@
 {
   "name": "micro-app-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "A framework based on micro-app",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -9,8 +9,15 @@
     "dev": "pnpm run --parallel dev",
     "build": "pnpm run --parallel build"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "mciro-app",
+    "typescript",
+    "vue3",
+    "pinia",
+    "vue-router",
+    "framework"
+  ],
+  "author": "lruri",
   "license": "ISC",
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",

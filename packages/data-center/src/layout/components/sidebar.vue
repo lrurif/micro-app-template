@@ -1,6 +1,10 @@
 <template>
     <div class="side-bar-wrapper">
-        <el-menu :default-active="activeRouteName">
+        <el-menu
+            ref="menu"
+            :default-active="activeRouteName"
+            :collapse="isCollapse"
+        >
             <Menubar :routes="asyncRoutes"></Menubar>
         </el-menu>
     </div>
@@ -9,11 +13,19 @@
 import Menubar from "./Menubar.vue";
 import { useMainStore } from "@/store";
 import { storeToRefs } from "pinia";
+import { ref, defineProps } from "vue";
 const store = useMainStore();
 const { asyncRoutes, activeRouteName } = storeToRefs(store);
+const menu = ref(null);
+const props = defineProps({
+    isCollapse: Boolean,
+});
 </script>
 <style lang="scss">
 .side-bar-wrapper {
-    width: 200px;
+    height: 100%;
+    .el-menu {
+        height: 100%;
+    }
 }
 </style>
