@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-import {RouteRecordRaw} from "vue-router"
+import { RouteRecordRaw } from "vue-router";
 export interface MainStore {
     token: string;
-    permissionRoutes: RouteRecordRaw[]
+    permissionRoutes: RouteRecordRaw[];
 }
 export const mainStore = defineStore("main", {
     persist: true,

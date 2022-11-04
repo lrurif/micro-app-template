@@ -49,6 +49,7 @@ const handleDropClick = (command) => {
     console.log(command);
     switch (command) {
     case "index":
+        navigateToIndex();
         break;
     case "user-center":
         break;

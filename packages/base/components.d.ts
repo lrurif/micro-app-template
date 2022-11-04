@@ -13,5 +13,6 @@ declare module '@vue/runtime-core' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    VElTable: typeof import('./src/components/v-el-table.vue')['default']
   }
 }

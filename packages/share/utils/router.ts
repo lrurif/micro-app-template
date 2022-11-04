@@ -1,5 +1,9 @@
 import { Router, RouteRecordRaw } from "vue-router";
-
+interface insertOptions {
+    rootRoute?: RouteRecordRaw;
+    notFoundRoute?: RouteRecordRaw;
+    asyncRoutes?: RouteRecordRaw[];
+}
 /**
  * 处理路由重定向配置
  * @param route
@@ -32,17 +36,21 @@ export function filterRouter(routes, userRole: string): RouteRecordRaw[] {
 /**
  * 获取左侧导航栏数据
  */
-export function getSideBarData(routes) {
+function handleUseSideData(routes) {
     routes.forEach((route) => {
         if (Array.isArray(route.children)) {
             if (!route.children?.[0].meta?.name) {
                 route.children = [];
             } else {
-                getSideBarData(route.children);
+                handleUseSideData(route.children);
             }
         }
     });
     return routes;
+}
+export function getSideBarData(routes) {
+    const copyRoutes = JSON.parse(JSON.stringify(routes));
+    return handleUseSideData(copyRoutes);
 }
 /**
  * 插入动态路由
@@ -50,10 +58,11 @@ export function getSideBarData(routes) {
  * @param asyncRoutes
  * @param rootRoute
  */
-export function insertRoutes(router: Router, asyncRoutes, rootRoute): void {
-    rootRoute.children = asyncRoutes;
-    handleRedirect(rootRoute);
-    router.addRoute(rootRoute);
+export function insertRoutes(router: Router, options: insertOptions): void {
+    options.rootRoute.children = options.asyncRoutes;
+    handleRedirect(options.rootRoute);
+    router.addRoute(options.notFoundRoute);
+    router.addRoute(options.rootRoute);
 }
 /**
  * 重置路由（新增一个名称相同的路由，会删除之前的路由）

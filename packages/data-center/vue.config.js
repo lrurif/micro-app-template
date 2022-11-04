@@ -3,6 +3,15 @@ const AutoImport = require("unplugin-auto-import/webpack");
 const Components = require("unplugin-vue-components/webpack");
 const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
 const resolve = (dir) => path.join(__dirname, ".", dir);
+const SERVER_Url = (() => {
+    let env = "dev";
+    let envMap = {
+        dev: "https://dev.gateway.iuctrip.com",
+        fat: "https://fat.gateway.iuctrip.com",
+        prod: "https://gateway.iuctrip.com",
+    };
+    return envMap[env];
+})();
 module.exports = {
     publicPath: "/data-center/",
     devServer: {
@@ -10,6 +19,16 @@ module.exports = {
         port: 9002,
         headers: {
             "Access-Control-Allow-Origin": "*",
+        },
+        proxy: {
+            [process.env.VUE_APP_BASE_URL]: {
+                target: SERVER_Url, //API服务器的地址
+                ws: true, //代理websockets
+                changeOrigin: true,
+                pathRewrite: {
+                    [`^${process.env.VUE_APP_BASE_URL}`]: "",
+                },
+            },
         },
     },
     chainWebpack: (config) => {
@@ -28,7 +47,7 @@ module.exports = {
         plugins: [
             AutoImport({
                 resolvers: [ElementPlusResolver()],
-                imports: ["vue", "vue-router", "pinia"]
+                imports: ["vue", "vue-router", "pinia"],
             }),
             Components({
                 dirs: ["src/components"],

@@ -6,9 +6,7 @@ axios.defaults.timeout = 20 * 1000;
 axios.defaults.maxBodyLength = 5 * 1024 * 1024;
 axios.defaults.withCredentials = true;
 
-function createAxiosInstance(
-    options: ExtendAxiosRequestConfig
-): AxiosInstance {
+function createAxiosInstance(options: ExtendAxiosRequestConfig): AxiosInstance {
     const instance = axios.create({
         ...options,
     });
@@ -16,12 +14,11 @@ function createAxiosInstance(
     return instance;
 }
 
-
 export function createRequestMethod(options) {
     const axiosInstance = createAxiosInstance(options);
     /**
- * 如果请求参数和url一样，则返回相同的promise
- */
+     * 如果请求参数和url一样，则返回相同的promise
+     */
     const abortControllers = new Map<string, Promise<AxiosResponse>>();
     function getPendingKey(config: AxiosRequestConfig): string {
         let { data } = config;
@@ -44,5 +41,4 @@ export function createRequestMethod(options) {
         return promise;
     };
     return request;
-
 }

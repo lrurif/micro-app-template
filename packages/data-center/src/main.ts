@@ -13,7 +13,7 @@ const dataListener = () => {
     store.setUserRole("");
     store.setActiveRouteName("");
     store.setPermissionRoutes([]);
-    store.setAsyncRoutes([]);
+    store.setSidebarData([]);
 };
 // 监听卸载操作
 window.addEventListener("unmount", dataListener);
@@ -22,4 +22,4 @@ window?.microApp?.addDataListener(() => {
 });
 const vm = createApp(App);
 installPinia(vm);
-vm.use(router).mount("#app");
+vm.use(router).mount("#data-center");

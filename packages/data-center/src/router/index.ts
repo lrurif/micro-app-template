@@ -7,6 +7,7 @@ import {
 import Home from "@/views/Home.vue";
 import NotFound from "@monorepo/share/components/404/index.vue";
 import { useMainStore } from "@/store/index";
+import { ElLoading } from "element-plus";
 
 // 异步路由 -start
 import userCenter from "./children/user-center";
@@ -17,23 +18,23 @@ export const rootRoute = {
     path: "/",
     name: ROUTE_ROOT_NAME,
     component: Home,
-}
+};
+export const NOT_FOUND = {
+    path: "/:pathMatch(.*)*",
+    redirect: "/404",
+    name: "404",
+};
 const routes: Array<RouteRecordRaw> = [
     rootRoute,
     {
         path: "/404",
-        name: "404",
+        name: "NOT_FOUND",
         component: NotFound,
-    }
+    },
 ];
 export const asyncRoutes: Array<RouteRecordRaw> = [
     ...overviewPage,
     ...userCenter,
-    {
-        path: "/:pathMatch(.*)",
-        redirect: "/404",
-        name: "404",
-    },
 ];
 
 const router: Router = createRouter({
@@ -42,8 +43,6 @@ const router: Router = createRouter({
     ),
     routes,
 });
-
-
 
 router.beforeEach(async (to, from, next) => {
     const store = useMainStore();
@@ -55,7 +54,14 @@ router.beforeEach(async (to, from, next) => {
         if (store.userRole) {
             next();
         } else {
+            let loading = null;
             try {
+                loading = ElLoading.service({
+                    target: ".content",
+                    lock: true,
+                    text: "加载应用中...",
+                    background: "rgba(0, 0, 0, 0.7)",
+                });
                 await store.getUserPermission();
                 next({
                     ...to,
@@ -65,6 +71,8 @@ router.beforeEach(async (to, from, next) => {
                 next({
                     name: "login",
                 });
+            } finally {
+                loading.close();
             }
         }
     }
@@ -88,9 +96,9 @@ function findDefaultRouteName(routes) {
         return routes[0]?.name || "";
     }
 }
-router.afterEach((to, from, failure) => {
+router.afterEach((to) => {
     const store = useMainStore();
-    const routeNames = findSideNames(store.asyncRoutes);
+    const routeNames = findSideNames(store.sidebarData);
     const matchedRoutes = to.matched;
     const length = matchedRoutes.length;
     for (let i = length - 1; i >= 0; i--) {
@@ -101,7 +109,7 @@ router.afterEach((to, from, failure) => {
     }
     // 如果第一次进入子应用，激活路由名取第一个
     if (!store.activeRouteName) {
-        store.setActiveRouteName(findDefaultRouteName(store.asyncRoutes));
+        store.setActiveRouteName(findDefaultRouteName(store.sidebarData));
     }
 });
 export default router;

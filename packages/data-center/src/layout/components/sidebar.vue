@@ -5,7 +5,7 @@
             :default-active="activeRouteName"
             :collapse="isCollapse"
         >
-            <Menubar :routes="asyncRoutes"></Menubar>
+            <Menubar :routes="sidebarData"></Menubar>
         </el-menu>
     </div>
 </template>
@@ -15,7 +15,7 @@ import { useMainStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { ref, defineProps } from "vue";
 const store = useMainStore();
-const { asyncRoutes, activeRouteName } = storeToRefs(store);
+const { sidebarData, activeRouteName } = storeToRefs(store);
 const menu = ref(null);
 const props = defineProps({
     isCollapse: Boolean,
