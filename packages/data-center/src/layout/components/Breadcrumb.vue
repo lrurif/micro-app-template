@@ -55,7 +55,8 @@ const toggleOpenStatus = () => {
         }
     }
 }
-.el-breadcrumb {
+.el-breadcrumb__item {
     float: left;
+    display: inline-block;
 }
 </style>

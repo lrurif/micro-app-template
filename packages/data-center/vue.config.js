@@ -1,9 +1,6 @@
 const path = require("path");
-const AutoImport = require("unplugin-auto-import/webpack");
-const Components = require("unplugin-vue-components/webpack");
-const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
-const unpluginElementPlus = require("unplugin-element-plus/webpack");
 const resolve = (dir) => path.join(__dirname, ".", dir);
+const plugins = require("./build/plugins");
 const SERVER_Url = (() => {
     let env = "dev";
     let envMap = {
@@ -33,6 +30,11 @@ module.exports = {
         },
     },
     chainWebpack: (config) => {
+        if (process.env.NODE_ENV === "production") {
+            // 移除 prefetch 插件
+            config.plugins.delete("prefetch");
+        }
+
         config.module
             .rule("vue")
             .use("vue-loader")
@@ -45,20 +47,7 @@ module.exports = {
             });
     },
     configureWebpack: {
-        plugins: [
-            AutoImport({
-                resolvers: [ElementPlusResolver()],
-                imports: ["vue", "vue-router", "pinia"],
-            }),
-            Components({
-                dirs: ["src/components"],
-                extensions: ["vue"],
-                deep: true,
-                version: 3,
-                resolvers: [ElementPlusResolver()],
-            }),
-            unpluginElementPlus(),
-        ],
+        plugins,
         resolve: {
             extensions: [".js", ".vue", ".json"],
             alias: {
@@ -74,4 +63,5 @@ module.exports = {
             },
         },
     },
+    // productionSourceMap: false, // 关闭生产环境的sourceMap
 };
