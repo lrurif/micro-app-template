@@ -1,21 +1,16 @@
 // global transition css
-
 .breadcrumb-enter-active,
 .breadcrumb-leave-active {
   transition: all .5s;
 }
 
-.breadcrumb-enter,
-.breadcrumb-leave-active {
+.breadcrumb-enter-from{
   opacity: 0;
   transform: translateX(20px);
 }
 
-.breadcrumb-move {
-  transition: all .5s;
-}
-
-.breadcrumb-leave-active {
+.breadcrumb-leave-active, .breadcrumb-leave-from {
+  opacity: 0;
   position: absolute;
 }
 /* fade-transform */

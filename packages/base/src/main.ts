@@ -4,6 +4,7 @@ import router from "./router";
 import microApp from "@micro-zoe/micro-app";
 import "@monorepo/share/style/normalize.css";
 import installPinia from "@monorepo/share/plugins/pinia";
+import "@monorepo/share/style/index.scss"
 window.addEventListener("beforeunload", () => {
     microApp.setData("dataCenter", { type: "destory" });
 });

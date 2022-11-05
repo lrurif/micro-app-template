@@ -57,7 +57,7 @@ module.exports = {
                 version: 3,
                 resolvers: [ElementPlusResolver()],
             }),
-            unpluginElementPlus()
+            unpluginElementPlus(),
         ],
         resolve: {
             extensions: [".js", ".vue", ".json"],
@@ -70,7 +70,7 @@ module.exports = {
     css: {
         loaderOptions: {
             sass: {
-                prependData: `@import "@monorepo/share/style/index.scss";`, // 全局导入scss混入
+                prependData: `@import "@monorepo/share/style/mixin.scss";`, // 全局导入scss混入
             },
         },
     },
