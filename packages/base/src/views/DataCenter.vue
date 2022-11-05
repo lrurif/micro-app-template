@@ -2,6 +2,8 @@
     <div class="home">
         <main-wrapper>
             <micro-app
+                @beforemount="hideLoading"
+                @catch="hideLoading"
                 name="dataCenter"
                 :url="url"
                 baseroute="/micro/data-center"
@@ -15,9 +17,15 @@
 <script lang="ts" setup>
 import mainWrapper from "@/layout/index.vue";
 
-import microApp from "@micro-zoe/micro-app";
-import { useRouter } from "vue-router";
-microApp.setData("dataCenter", { type: "新的数据" });
+import { ElLoading } from "element-plus";
+const loading = ElLoading.service({
+    lock: true,
+    text: "创建应用中...",
+    background: "rgba(0, 0, 0, 0.7)",
+});
+const hideLoading = () => {
+    loading.close();
+};
 const url: string =
     process.env.NODE_ENV === "development"
         ? "http://localhost:9002/data-center"

@@ -1,6 +1,5 @@
 <template>
-    <div>自定义组价</div>
+    <div>自定义组件</div>
 </template>
 <script lang="ts" setup></script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

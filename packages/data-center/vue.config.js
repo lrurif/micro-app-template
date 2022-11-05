@@ -2,6 +2,7 @@ const path = require("path");
 const AutoImport = require("unplugin-auto-import/webpack");
 const Components = require("unplugin-vue-components/webpack");
 const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
+const unpluginElementPlus = require("unplugin-element-plus/webpack");
 const resolve = (dir) => path.join(__dirname, ".", dir);
 const SERVER_Url = (() => {
     let env = "dev";
@@ -56,6 +57,7 @@ module.exports = {
                 version: 3,
                 resolvers: [ElementPlusResolver()],
             }),
+            unpluginElementPlus(),
         ],
         resolve: {
             extensions: [".js", ".vue", ".json"],

@@ -2,9 +2,14 @@
     <div class="nav-header flex ai-center">
         <i class="iconfont icon-side" @click="toggleOpenStatus"></i>
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item v-for="item in breadList" :key="item.name">{{
-                item.meta.name
-            }}</el-breadcrumb-item>
+            <transition-group name="breadcrumb">
+                <el-breadcrumb-item
+                    v-for="item in breadList"
+                    :key="item.name"
+                    :to="item"
+                    ><span>{{ item.meta.name }}</span></el-breadcrumb-item
+                >
+            </transition-group>
         </el-breadcrumb>
     </div>
 </template>
@@ -41,6 +46,7 @@ const toggleOpenStatus = () => {
 .nav-header {
     background-color: #fff;
     box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+    position: relative;
     .icon-side {
         padding: 16px;
         cursor: pointer;
@@ -48,5 +54,8 @@ const toggleOpenStatus = () => {
             background: rgba(0, 0, 0, 0.025);
         }
     }
+}
+.el-breadcrumb {
+    float: left;
 }
 </style>

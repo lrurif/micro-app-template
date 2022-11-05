@@ -19,7 +19,7 @@ export function createRequestMethod(options) {
     /**
      * 如果请求参数和url一样，则返回相同的promise
      */
-    const abortControllers = new Map<string, Promise<AxiosResponse>>();
+    const abortControllers = new Map<string, Promise<AxiosResponse>>(); // Promise池，存放未完成的请求
     function getPendingKey(config: AxiosRequestConfig): string {
         let { data } = config;
         const { url, method, params } = config;

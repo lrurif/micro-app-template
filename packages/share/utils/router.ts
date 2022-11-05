@@ -1,7 +1,7 @@
 import { Router, RouteRecordRaw } from "vue-router";
 interface insertOptions {
-    rootRoute?: RouteRecordRaw;
-    notFoundRoute?: RouteRecordRaw;
+    rootRoute: RouteRecordRaw;
+    notFoundRoute: RouteRecordRaw;
     asyncRoutes?: RouteRecordRaw[];
 }
 /**
@@ -59,7 +59,7 @@ export function getSideBarData(routes) {
  * @param rootRoute
  */
 export function insertRoutes(router: Router, options: insertOptions): void {
-    options.rootRoute.children = options.asyncRoutes;
+    options.rootRoute.children = options.asyncRoutes || [];
     handleRedirect(options.rootRoute);
     router.addRoute(options.notFoundRoute);
     router.addRoute(options.rootRoute);
@@ -69,6 +69,38 @@ export function insertRoutes(router: Router, options: insertOptions): void {
  * @param router
  * @param asyncRoutes
  */
-export function resetRouter(router: Router, rootRoute: RouteRecordRaw): void {
-    router.addRoute(rootRoute);
+export function resetRouter(router: Router, options: insertOptions): void {
+    router.addRoute(options.rootRoute);
+    router.removeRoute(options?.notFoundRoute?.name || "404");
+}
+/**
+ * 获取所有左侧菜单栏可激活的name
+ * @param routes
+ * @returns
+ */
+export function findSideNames(routes: RouteRecordRaw[]): (string | symbol)[] {
+    let res = [];
+    for (const route of routes) {
+        if (route.name) {
+            res.push(route.name);
+        }
+        if (route.children) {
+            res = res.concat(findSideNames(route.children));
+        }
+    }
+    return res;
+}
+/**
+ * 查找菜单栏第一个可激活的name
+ * @param routes
+ * @returns string
+ */
+export function findDefaultRouteName(
+    routes: RouteRecordRaw[]
+): string | symbol {
+    if (routes?.[0]?.children?.length > 0) {
+        return findDefaultRouteName(routes[0].children);
+    } else {
+        return routes[0]?.name || "";
+    }
 }

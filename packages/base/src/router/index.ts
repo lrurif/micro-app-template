@@ -45,16 +45,6 @@ const router: Router = createRouter({
     routes,
 });
 
-const clearRoutes = (router: Router, asyncRoutes: RouteRecordRaw[]) => {
-    asyncRoutes.forEach((route) => {
-        if (route.name) {
-            router.removeRoute(route.name);
-        }
-        if (route.children) {
-            clearRoutes(router, route.children);
-        }
-    });
-};
 router.beforeEach(async (to, from, next) => {
     const store = mainStore();
     const whiteList: (string | symbol)[] = ["404", "login"];
@@ -67,7 +57,4 @@ router.beforeEach(async (to, from, next) => {
         });
     }
 });
-export function resetRouter(): void {
-    clearRoutes(router, asyncRoutes);
-}
 export default router;

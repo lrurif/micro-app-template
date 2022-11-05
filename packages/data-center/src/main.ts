@@ -6,7 +6,6 @@ import "@monorepo/share/style/normalize.css";
 import "@monorepo/share/style/iconfont.css";
 import installPinia from "@monorepo/share/plugins/pinia";
 import { useMainStore } from "@/store/index";
-import 'element-plus/dist/index.css'
 
 const dataListener = () => {
     const store = useMainStore();
@@ -17,8 +16,11 @@ const dataListener = () => {
 };
 // 监听卸载操作
 window.addEventListener("unmount", dataListener);
-window?.microApp?.addDataListener(() => {
-    dataListener();
+window?.microApp?.addDataListener((e) => {
+    const { type } = e;
+    if (type === "destory") {
+        dataListener();
+    }
 });
 const vm = createApp(App);
 installPinia(vm);

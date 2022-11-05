@@ -8,7 +8,10 @@ import Home from "@/views/Home.vue";
 import NotFound from "@monorepo/share/components/404/index.vue";
 import { useMainStore } from "@/store/index";
 import { ElLoading } from "element-plus";
-
+import {
+    findSideNames,
+    findDefaultRouteName,
+} from "@monorepo/share/utils/router";
 // 异步路由 -start
 import userCenter from "./children/user-center";
 import overviewPage from "./children/overview-page";
@@ -77,25 +80,7 @@ router.beforeEach(async (to, from, next) => {
         }
     }
 });
-function findSideNames(routes) {
-    let res = [];
-    for (const route of routes) {
-        if (route.name) {
-            res.push(route.name);
-        }
-        if (route.children) {
-            res = res.concat(findSideNames(route.children));
-        }
-    }
-    return res;
-}
-function findDefaultRouteName(routes) {
-    if (routes?.[0]?.children?.length > 0) {
-        return findDefaultRouteName(routes[0].children);
-    } else {
-        return routes[0]?.name || "";
-    }
-}
+
 router.afterEach((to) => {
     const store = useMainStore();
     const routeNames = findSideNames(store.sidebarData);
