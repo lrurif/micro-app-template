@@ -5,6 +5,7 @@
                 @beforemount="hideLoading"
                 @catch="hideLoading"
                 name="dataCenter"
+                :data="data"
                 :url="url"
                 baseroute="/micro/data-center"
                 @datachange="handleDataChange"
@@ -16,8 +17,9 @@
 
 <script lang="ts" setup>
 import mainWrapper from "@/layout/index.vue";
-
 import { ElLoading } from "element-plus";
+import { reactive } from "vue";
+import dataCenterEvent from "@/eventCenter/dataCenter";
 const loading = ElLoading.service({
     lock: true,
     text: "创建应用中...",
@@ -34,5 +36,8 @@ const url: string =
 const handleDataChange = (e: unknown) => {
     console.log(e, "handleDataChange");
 };
+const data = reactive({
+    eventBus: dataCenterEvent,
+});
 </script>
 <style></style>

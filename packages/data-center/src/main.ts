@@ -22,6 +22,8 @@ window?.microApp?.addDataListener((e) => {
         dataListener();
     }
 });
+const data = window.microApp?.getData();
 const vm = createApp(App);
+vm.provide("eventBus", data.eventBus);
 installPinia(vm);
 vm.use(router).mount("#data-center");

@@ -1,6 +1,6 @@
 const path = require("path");
 const resolve = (dir) => path.join(__dirname, ".", dir);
-const plugins = require("./build/plugins");
+const plugins = require("@monorepo/share/build/plugins");
 const SERVER_Url = (() => {
     let env = "dev";
     let envMap = {
