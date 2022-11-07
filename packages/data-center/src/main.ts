@@ -2,17 +2,13 @@ import "./publicPath.ts";
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import "@monorepo/share/style/normalize.css";
-import "@monorepo/share/style/iconfont.css";
+import "@monorepo/share/style/index.scss";
 import installPinia from "@monorepo/share/plugins/pinia";
 import { useMainStore } from "@/store/index";
 
 const dataListener = () => {
     const store = useMainStore();
-    store.setUserRole("");
-    store.setActiveRouteName("");
-    store.setPermissionRoutes([]);
-    store.setSidebarData([]);
+    store.resetUserRole();
 };
 // 监听卸载操作
 window.addEventListener("unmount", dataListener);
@@ -24,6 +20,6 @@ window?.microApp?.addDataListener((e) => {
 });
 const data = window.microApp?.getData();
 const vm = createApp(App);
-vm.provide("eventBus", data.eventBus);
+vm.provide("eventBus", data?.eventBus);
 installPinia(vm);
 vm.use(router).mount("#data-center");

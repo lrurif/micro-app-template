@@ -12,11 +12,17 @@ import {
     findSideNames,
     findDefaultRouteName,
 } from "@monorepo/share/utils/router";
-// 异步路由 -start
-import userCenter from "./children/user-center";
-import overviewPage from "./children/overview-page";
-// 异步路由 -end
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+// 自动引入权限路由 -start
+export const asyncRoutes: Array<RouteRecordRaw> = [];
+const modulesFiles = require.context("./children", true, /\.ts$/);
+modulesFiles.keys().forEach((key) => {
+    asyncRoutes.push(...modulesFiles(key).default);
+});
+// 自动引入权限路由 -end
 const ROUTE_ROOT_NAME = "Home";
+NProgress.configure({ showSpinner: false });
 export const rootRoute = {
     path: "/",
     name: ROUTE_ROOT_NAME,
@@ -35,10 +41,6 @@ const routes: Array<RouteRecordRaw> = [
         component: NotFound,
     },
 ];
-export const asyncRoutes: Array<RouteRecordRaw> = [
-    ...overviewPage,
-    ...userCenter,
-];
 
 const router: Router = createRouter({
     history: createWebHistory(
@@ -48,6 +50,7 @@ const router: Router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+    NProgress.start();
     const store = useMainStore();
     const whiteList: (string | symbol)[] = ["404", "login"];
     const hasWhite: boolean = whiteList.includes(to.name);
@@ -82,6 +85,7 @@ router.beforeEach(async (to, from, next) => {
 });
 
 router.afterEach((to) => {
+    NProgress.done();
     const store = useMainStore();
     const routeNames = findSideNames(store.sidebarData);
     const matchedRoutes = to.matched;

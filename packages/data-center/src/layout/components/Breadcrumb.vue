@@ -1,6 +1,10 @@
 <template>
     <div class="nav-header flex ai-center">
-        <i class="iconfont icon-side" @click="toggleOpenStatus"></i>
+        <i
+            class="iconfont icon-side"
+            @click="toggleOpenStatus"
+            :class="[isOpen ? 'rotate' : '']"
+        ></i>
         <el-breadcrumb separator="/">
             <transition-group name="breadcrumb">
                 <el-breadcrumb-item
@@ -18,7 +22,7 @@ import { useRoute } from "vue-router";
 import { watch, ref, onMounted, defineEmits } from "vue";
 const route = useRoute();
 let breadList = ref([]);
-let isOpen = true;
+let isOpen = ref(true);
 const emits = defineEmits(["toggle"]);
 onMounted(() => {
     watch(
@@ -38,7 +42,7 @@ function getRouteNames(currentRoute) {
     });
 }
 const toggleOpenStatus = () => {
-    isOpen = !isOpen;
+    isOpen.value = !isOpen.value;
     emits("toggle");
 };
 </script>
@@ -58,5 +62,8 @@ const toggleOpenStatus = () => {
 .el-breadcrumb__item {
     float: left;
     display: inline-block;
+}
+.rotate.icon-side {
+    transform: rotate(180deg);
 }
 </style>

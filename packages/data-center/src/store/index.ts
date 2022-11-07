@@ -67,5 +67,11 @@ export const useMainStore = defineStore("data-center", {
             const sidebarData = getSideBarData(permissionRoutes); // 获取左侧菜单栏所需数据
             this.setSidebarData(sidebarData);
         },
+        resetUserRole() {
+            this.setUserRole("");
+            this.setActiveRouteName("");
+            this.setPermissionRoutes([]);
+            this.setSidebarData([]);
+        },
     },
 });
