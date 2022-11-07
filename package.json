@@ -1,13 +1,18 @@
 {
   "name": "micro-app-template",
   "version": "1.0.0",
-  "description": "A framework based on micro-app",
+  "description": "A template based on micro-app",
   "main": "index.js",
   "private": true,
   "scripts": {
-    "base:dev": "pnpm run --filter @monorepo/base dev",
     "dev": "pnpm run --parallel dev",
+    "base:dev": "pnpm run --filter @monorepo/base dev",
+    "base:data-center": "pnpm run --filter @monorepo/dataCenter dev",
+    "base:merchant": "pnpm run --filter @monorepo/merchant dev",
     "build": "pnpm run --parallel build",
+    "build:base": "pnpm run --filter @monorepo/base build",
+    "build:data-center": "pnpm run --filter @monorepo/base build",
+    "build:merchant": "pnpm run --filter @monorepo/merchant build",
     "push": "sh ./push.sh"
   },
   "keywords": [
