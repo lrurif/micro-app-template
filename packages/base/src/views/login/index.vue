@@ -168,6 +168,7 @@ const loginIn = async () => {
             padding: 35px 25px 0;
             box-sizing: border-box;
             backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .end-box {

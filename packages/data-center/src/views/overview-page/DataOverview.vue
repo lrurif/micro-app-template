@@ -7,15 +7,15 @@
 </template>
 <script lang="ts" setup>
 import { ref, inject } from "vue";
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
 const inputValue = ref("");
 const eventBus: any = inject("eventBus");
 const router = useRouter();
 
 const handleClick = () => {
     router.push({
-        name: "userList"
-    })
+        name: "userList",
+    });
     document.querySelector("input").focus();
     console.log(eventBus, "eventBus");
     eventBus.emit("hide", "123", "123");

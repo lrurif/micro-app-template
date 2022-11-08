@@ -27,5 +27,8 @@ const props = defineProps({
     .el-menu {
         height: 100%;
     }
+    .el-menu--vertical:not(.el-menu--collapse) {
+        width: 200px;
+    }
 }
 </style>
