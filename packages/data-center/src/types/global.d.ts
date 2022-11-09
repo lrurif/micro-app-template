@@ -6,6 +6,7 @@ declare global {
         __MICRO_APP_BASE_ROUTE__?: string;
         openMenu: any;
         closeMenu: any;
+        Vue: any;
     }
 }
 export {};

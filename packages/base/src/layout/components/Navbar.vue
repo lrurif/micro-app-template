@@ -8,7 +8,22 @@
             <span class="merchant-name">商户名称</span>
         </div>
         <div class="nav__right flex ai-center">
-            <el-color-picker v-model="themeColor" @change="changeTheme" />
+            <div class="theme-color-picker">
+                <el-color-picker
+                    v-model="themeColor"
+                    @change="changeTheme"
+                    style="margin-right: 20px"
+                />
+            </div>
+
+            <div class="message-tips">
+                <el-badge :value="12" :max="99">
+                    <el-icon>
+                        <Bell></Bell>
+                    </el-icon>
+                </el-badge>
+            </div>
+
             <i
                 :class="[
                     'iconfont',
@@ -43,8 +58,9 @@ import { mainStore } from "@/store";
 import microApp from "@micro-zoe/micro-app";
 import { useRouter } from "vue-router";
 import { useFullscreen } from "@vueuse/core";
-import { ref } from "vue"
-import { useElementPlusTheme } from "@monorepo/share/hooks/useElementPlusTheme"
+import { ref } from "vue";
+import { useElementPlusTheme } from "@monorepo/share/hooks/useElementPlusTheme";
+import { Bell } from "@element-plus/icons-vue";
 const store = mainStore();
 
 const router = useRouter();
@@ -96,6 +112,14 @@ const { changeTheme } = useElementPlusTheme();
         }
         .icon-window {
             font-size: 23px;
+        }
+        .theme-color-picker {
+            margin-right: 20px;
+        }
+        .message-tips {
+            font-size: 26px;
+            color: #fff;
+            margin-right: 20px;
         }
     }
     &__left {
