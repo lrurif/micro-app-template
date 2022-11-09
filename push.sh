@@ -6,3 +6,4 @@ git commit -m "$1"
 commitId=`git rev-parse --short HEAD`
 git tag -a $2 -m $1 $commitId
 git push origin $2
+echo $2
