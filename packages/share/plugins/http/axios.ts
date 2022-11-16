@@ -19,7 +19,7 @@ export function createRequestMethod(options) {
     /**
      * 如果请求参数和url一样，则返回相同的promise
      */
-    const abortControllers = new Map<string, Promise<AxiosResponse>>(); // Promise池，存放未完成的请求
+    const abortControllers = new Map<string, Promise<any>>(); // Promise池，存放未完成的请求
     function getPendingKey(config: AxiosRequestConfig): string {
         let { data } = config;
         const { url, method, params } = config;
@@ -28,17 +28,26 @@ export function createRequestMethod(options) {
             "&"
         );
     }
-    const request = function (
-        data: AxiosRequestConfig
-    ): Promise<AxiosResponse> {
-        const key = getPendingKey(data);
-        if (abortControllers.has(key)) return abortControllers.get(key);
-        const promise = axiosInstance(data);
-        promise.finally(() => {
-            abortControllers.delete(key);
+    const request = function <T>(data: AxiosRequestConfig): Promise<T> {
+        // start
+        return new Promise((resolve, reject) => {
+            const key = getPendingKey(data);
+            if (abortControllers.has(key))
+                return resolve(abortControllers.get(key));
+            const promise = axiosInstance(data);
+            promise.finally(() => {
+                abortControllers.delete(key);
+            });
+            promise.then(
+                (res) => {
+                    resolve(res as unknown as Promise<T>);
+                },
+                (err) => {
+                    reject(err);
+                }
+            );
+            abortControllers.set(key, promise);
         });
-        abortControllers.set(key, promise);
-        return promise;
     };
     return request;
 }

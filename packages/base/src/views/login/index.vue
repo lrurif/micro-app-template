@@ -125,7 +125,7 @@ let loginForm = reactive({
 const loginIn = async () => {
     try {
         const store = mainStore();
-        let data: any = await login(loginForm);
+        let data = await login(loginForm);
         store.setToken(data.token || "temp token");
         router.push("/");
     } catch (e) {

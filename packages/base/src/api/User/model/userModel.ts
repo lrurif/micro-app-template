@@ -5,4 +5,5 @@ export interface LoginType {
 export interface User {
     userName: string;
     merchantId: number;
+    token: string;
 }
