@@ -29,10 +29,10 @@ function decrypt(data, keyStr = KEY) {
     const decrypted = udata.toString(CryptoJs.enc.Utf8); // 返回的是加密之前的原始数据,是字符串类型
     return decrypted;
 }
-export function piniaEncryp(data) {
+export function encrypData(data) {
     return encryp(data);
 }
-export function piniaDecrypt(data) {
+export function decryptData(data) {
     const str = decrypt(data);
     return JSON.parse(str);
 }

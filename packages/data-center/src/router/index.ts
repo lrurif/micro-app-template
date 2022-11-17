@@ -14,6 +14,7 @@ import {
 } from "@monorepo/share/utils/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import { encrypData, decryptData } from "@monorepo/share/utils/crypto";
 // 自动引入权限路由 -start
 export const asyncRoutes: Array<RouteRecordRaw> = [];
 const modulesFiles = require.context("./children", true, /\.ts$/);
@@ -41,12 +42,16 @@ const routes: Array<RouteRecordRaw> = [
         component: NotFound,
     },
 ];
-
 const router: Router = createRouter({
     history: createWebHistory(
         window.__MICRO_APP_BASE_ROUTE__ || process.env.BASE_URL
     ),
     routes,
+    parseQuery: decryptData,
+    stringifyQuery: (data) => {
+        if (Object.keys(data).length === 0) return "";
+        return encrypData(data);
+    },
 });
 
 router.beforeEach(async (to, from, next) => {

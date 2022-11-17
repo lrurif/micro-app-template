@@ -19,6 +19,10 @@ const router = useRouter();
 const handleClick = () => {
     router.push({
         name: "userList",
+        query: {
+            name: "小明",
+            age: "123123"
+        }
     });
     document.querySelector("input").focus();
     console.log(eventBus, "eventBus");

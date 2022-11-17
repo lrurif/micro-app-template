@@ -18,7 +18,7 @@ const basePlugins = [
     }),
     unpluginElementPlus(),
 ];
-const productPlugins = [
+const prodPlugins = [
     new CompressionPlugin({
         test: /\.js$|\.html$|.\css/, // 匹配文件名
         threshold: 10240, // 对超过10k的数据压缩
@@ -28,5 +28,5 @@ const productPlugins = [
 ];
 const devPlugins = [];
 const isProd = process.env.NODE_ENV === "production";
-const plugins = basePlugins.concat(isProd ? productPlugins : devPlugins);
+const plugins = [...basePlugins, ...(isProd ? prodPlugins : devPlugins)];
 module.exports = plugins;

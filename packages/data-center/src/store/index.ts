@@ -6,7 +6,7 @@ import {
     insertRoutes,
 } from "@monorepo/share/utils/router";
 import router, { rootRoute, asyncRoutes, NOT_FOUND } from "@/router";
-import { piniaEncryp, piniaDecrypt } from "@monorepo/share/utils/crypto";
+import { encrypData, decryptData } from "@monorepo/share/utils/crypto";
 export interface DataCenterStore {
     token: string;
     permissionRoutes: RouteRecordRaw[];
@@ -17,8 +17,8 @@ export interface DataCenterStore {
 export const useMainStore = defineStore("data-center", {
     persist: {
         serializer: {
-            deserialize: piniaDecrypt,
-            serialize: piniaEncryp,
+            deserialize: decryptData,
+            serialize: encrypData,
         },
     },
     state: (): DataCenterStore => {
