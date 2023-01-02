@@ -29,3 +29,27 @@ export default class EventBus {
         events.delete(fn);
     }
 }
+
+/**
+ * 创建一个任务队列，多个相同的同步任务在一次事件循环中只执行一次
+ * @returns 
+ */
+export function createQueue() {
+    const queue = new Set();
+    let isFlushing = false;
+    const p = Promise.resolve();
+    return function (fn) {
+        queue.add(fn);
+        if (!isFlushing) {
+            isFlushing = true;
+            p.then(() => {
+                queue.forEach((item: any) => {
+                    item();
+                })
+            }).finally(() => {
+                isFlushing = false
+            })
+
+        }
+    }
+}

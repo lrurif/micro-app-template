@@ -63,5 +63,5 @@ module.exports = {
             },
         },
     },
-    // productionSourceMap: false, // 关闭生产环境的sourceMap
+    productionSourceMap: false, // 关闭生产环境的sourceMap
 };
