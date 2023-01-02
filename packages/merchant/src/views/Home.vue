@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="utils-wrapper">
-            <div>生成马赛克</div>
+            <RouterLink to="/mosaic">生成马赛克</RouterLink>
         </div>
     </div>
 </template>
