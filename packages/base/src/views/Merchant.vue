@@ -29,7 +29,7 @@ const hideLoading = () => {
 const url: string =
     process.env.NODE_ENV === "development"
         ? "http://localhost:9003/merchant"
-        : "http://123.60.178.192:9003/merchant";
+        : "https://lrurif.com:9003/merchant";
 
 const handleDataChange = (e: unknown) => {
     console.log(e, "handleDataChange");
