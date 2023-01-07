@@ -105,6 +105,9 @@
                 </div>
             </div>
         </div>
+        <div class="beian">
+            <a target="_blank" href="https://beian.miit.gov.cn">网站备案: 浙ICP备2022037674号</a>
+        </div>
     </div>
 </template>
 <script lang="ts" setup>
@@ -258,6 +261,17 @@ const loginIn = async () => {
                 font-weight: 500;
                 cursor: pointer;
             }
+        }
+    }
+    .beian {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        a {
+            font-size: 13px;
+            color: rgb(224, 224, 224);
+            text-decoration: none;
         }
     }
 }

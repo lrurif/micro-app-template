@@ -26,6 +26,7 @@ const loading = ElLoading.service({
 const hideLoading = () => {
     loading.close();
 };
+const { origin } = window.location;
 const url: string =
     process.env.NODE_ENV === "development"
         ? "http://localhost:9003/merchant"

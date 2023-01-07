@@ -10,12 +10,17 @@
     </div>
 </template>
 <script lang="ts" setup>
-import {  ref, inject } from "vue";
+import {  ref, inject, reactive } from "vue";
 import { useRouter } from "vue-router";
 const inputValue = ref<string>("");
 const eventBus: any = inject("eventBus");
 const router = useRouter();
-
+setTimeout(() => {
+    let url = "assets/logo.png"
+    import(`@/${url}`).then(res => {
+        console.log(res, 'res');
+    })
+})
 const handleClick = () => {
     router.push({
         name: "userList",
