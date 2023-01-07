@@ -12,6 +12,7 @@
 <script lang="ts" setup>
 import {  ref, inject, reactive } from "vue";
 import { useRouter } from "vue-router";
+
 const inputValue = ref<string>("");
 const eventBus: any = inject("eventBus");
 const router = useRouter();

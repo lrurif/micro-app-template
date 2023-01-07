@@ -1,171 +1,35 @@
 <template>
     <div class="page-wrapper">
         交易数据
-        <el-tree
-            ref="leftTree"
-            :data="leftTreeData"
-            show-checkbox
-            node-key="id"
-            :props="defaultProps"
-        />
-        <div style="border: 1px solid red;">
-            <el-tree
-                ref="rightTree"
-                :data="rightTreeData"
-                show-checkbox
-                node-key="id"
-                :props="defaultProps"
-            />
+        <div class="tree-wrapper">
+            <div class="tree">
+                <el-input v-model="leftFilter" @input="filterLeftNode"></el-input>
+                <el-tree :filter-node-method="filterLeft" ref="leftTree" :default-expand-all="true" :data="leftTreeData" show-checkbox node-key="id" :props="defaultProps" :default-expanded-keys="leftExpandedKeys" @node-expand="handleLeftNodeExpand" @node-collapse="handleLeftNodeCollapse"/>
+            </div>
+            <div class="middle">
+                <el-button @click="moveDataToRight">右移</el-button>
+                <el-button @click="moveDataToLeft">左移</el-button>
+            </div>
+            <div class="tree">
+                <el-input v-model="rightFilter" @input="filterRightNode"></el-input>
+                <el-tree :filter-node-method="filterRight" ref="rightTree" :default-expand-all="true" :data="rightTreeData" show-checkbox node-key="id" :props="defaultProps" :default-expanded-keys="rightExpandedKeys" @node-expand="handleRightNodeExpand" @node-collapse="handleRightNodeCollapse"/>
+            </div>
         </div>
+
     </div>
 
-    <el-button @click="getNodes">获取所选节点</el-button>
-    <el-button @click="moveDataToRight">右移</el-button>
-    <el-button>左移</el-button>
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
+import temoOriginData from "./data.js"
 const defaultProps = {
     children: "children",
     label: "label",
 };
 const leftTree = ref(null);
 const rightTree = ref(null);
-const getNodes = () => {
-    console.log(leftTree.value.getCheckedKeys());
-};
-const changeData = () => {
-    leftTreeData.value = [
-        {
-            id: 1,
-            label: "Level one 1",
-            children: [
-                {
-                    id: 4,
-                    label: "Level two 1-1",
-                    children: [
-                        {
-                            id: 9,
-                            label: "Level three 1-1-1",
-                        },
-                        {
-                            id: 10,
-                            label: "Level three 1-1-2",
-                        },
-                    ],
-                },
-            ],
-        },
-    ];
-};
-let originData = [
-    {
-        id: 1,
-        label: "Level one 1",
-        children: [
-            {
-                id: 4,
-                label: "Level two 1-1",
-                children: [
-                    {
-                        id: 9,
-                        label: "Level three 1-1-1",
-                    },
-                    {
-                        id: 10,
-                        label: "Level three 1-1-2",
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        id: 2,
-        label: "Level one 2",
-        children: [
-            {
-                id: 5,
-                label: "Level two 2-1",
-            },
-            {
-                id: 6,
-                label: "Level two 2-2",
-            },
-        ],
-    },
-    {
-        id: 3,
-        label: "Level one 3",
-        children: [
-            {
-                id: 7,
-                label: "Level two 3-1",
-            },
-            {
-                id: 8,
-                label: "Level two 3-2",
-            },
-            {
-                id: 11,
-                label: "Level two 3-2",
-            },
-        ],
-    },
-];
-const leftTreeData = ref([
-    {
-        id: 1,
-        label: "Level one 1",
-        children: [
-            {
-                id: 4,
-                label: "Level two 1-1",
-                children: [
-                    {
-                        id: 9,
-                        label: "Level three 1-1-1",
-                    },
-                    {
-                        id: 10,
-                        label: "Level three 1-1-2",
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        id: 2,
-        label: "Level one 2",
-        children: [
-            {
-                id: 5,
-                label: "Level two 2-1",
-            },
-            {
-                id: 6,
-                label: "Level two 2-2",
-            },
-        ],
-    },
-    {
-        id: 3,
-        label: "Level one 3",
-        children: [
-            {
-                id: 7,
-                label: "Level two 3-1",
-            },
-            {
-                id: 8,
-                label: "Level two 3-2",
-            },
-            {
-                id: 11,
-                label: "Level two 3-2",
-            },
-        ],
-    },
-]);
+let originData = JSON.parse(JSON.stringify(temoOriginData));
+const leftTreeData = ref(JSON.parse(JSON.stringify(temoOriginData)));
 const rightTreeData = ref([]);
 
 const getAllNodesKey = (tree, res) => {
@@ -174,8 +38,7 @@ const getAllNodesKey = (tree, res) => {
         item.children && getAllNodesKey(item.children, res);
     });
     return res;
-};
-let allKeys = getAllNodesKey(originData, []);
+};  
 // 左右树的所有key
 let leftKeys = getAllNodesKey(leftTreeData.value, []);
 let rightKeys = getAllNodesKey(rightTreeData.value, []);
@@ -208,8 +71,6 @@ function ArrToTree(list) {
     });
     return treeList;
 }
-// const flatternLeftData = TreeToArr(leftTreeData.value, []);
-// const flatternRightData = TreeToArr(rightTreeData.value, []);
 let flatternData = TreeToArr(originData, []);
 const moveDataToRight = () => {
     let leftSelectKeys = leftTree.value.getCheckedKeys();
@@ -219,16 +80,83 @@ const moveDataToRight = () => {
         lastLeftKeys.includes(item.id)
     );
     let lastLeftTreeTemp = ArrToTree(lastLeftNodes);
-    leftTreeData.value = lastLeftTreeTemp;
+    leftTreeData.value = JSON.parse(JSON.stringify(lastLeftTreeTemp));
     // 处理右边树
-    rightKeys = [...rightKeys, ...leftSelectKeys];
+    let leftHalfKeys = leftTree.value.getHalfCheckedKeys();
+    rightKeys = [...new Set([...rightKeys, ...leftSelectKeys, ...leftHalfKeys])];
     let lastRightNodes = flatternData.filter((item) => {
         return rightKeys.includes(item.id);
     });
-    debugger;
     let lastRightTreeTemp = ArrToTree(lastRightNodes);
-    rightTreeData.value = lastRightTreeTemp;
+    rightTreeData.value = JSON.parse(JSON.stringify(lastRightTreeTemp));
+
+    
 };
+const moveDataToLeft = () => {
+    let rightSelectKeys = rightTree.value.getCheckedKeys();
+    let lastRightKeys = rightKeys.filter((id) => !rightSelectKeys.includes(id));
+    rightKeys = lastRightKeys;
+    let lastRightNodes = flatternData.filter((item) =>
+        lastRightKeys.includes(item.id)
+    );
+    let lastRightTreeTemp = ArrToTree(lastRightNodes);
+    rightTreeData.value = JSON.parse(JSON.stringify(lastRightTreeTemp));
+    // 处理左边树
+    let rightHalfKeys = rightTree.value.getHalfCheckedKeys();
+    leftKeys = [...new Set([...leftKeys, ...rightSelectKeys, ...rightHalfKeys])];
+    let lastLeftNodes = flatternData.filter((item) => {
+        return leftKeys.includes(item.id);
+    });
+    let lastLeftTreeTemp = ArrToTree(lastLeftNodes);
+    leftTreeData.value = JSON.parse(JSON.stringify(lastLeftTreeTemp));
+};
+
+const leftExpandedKeys = ref([])
+const handleLeftNodeExpand =(data) => {
+    leftExpandedKeys.value.push(data.id)
+}
+
+const handleLeftNodeCollapse =(data) => {
+    let i = leftExpandedKeys.value.findIndex(item => item == data.id)
+    i != -1 && leftExpandedKeys.value.splice(i, 1)
+
+}
+const rightExpandedKeys = ref([])
+const handleRightNodeExpand =(data) => {
+    rightExpandedKeys.value.push(data.id)
+}
+
+const handleRightNodeCollapse =(data) => {
+    let i = rightExpandedKeys.value.findIndex(item => item == data.id)
+    i != -1 && rightExpandedKeys.value.splice(i, 1)
+
+}
+// 左树过滤 - start
+const leftFilter = ref("");
+const filterLeftNode = (value) => {
+    leftTree.value.filter(value)
+}
+const filterLeft = (value, data) => {
+    return data.label.includes(value)
+}
+// 左树过滤 - end
+// 右树过滤 - start
+const rightFilter = ref("");
+const filterRightNode = (value) => {
+    rightTree.value.filter(value)
+}
+const filterRight = (value, data) => {
+    return data.label.includes(value)
+}
+// 左树过滤 - end
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.tree-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .tree {
+        width: 40%;
+    }
+}
+</style>
