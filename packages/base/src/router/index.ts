@@ -7,6 +7,7 @@ import {
 import Home from "@/views/Home.vue";
 import NotFound from "@monorepo/share/components/404/index.vue";
 import { mainStore } from "@/store/index";
+import { baseRouteName } from "@/enums"
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
@@ -15,7 +16,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: "/login",
-        name: "login",
+        name: baseRouteName.LOGIN,
         component: () => import("@/views/login/index.vue"),
     },
     {
@@ -30,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: "/404",
-        name: "404",
+        name: baseRouteName.NOT_FOUND,
         component: NotFound,
     },
     {
@@ -47,7 +48,7 @@ const router: Router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const store = mainStore();
-    const whiteList: (string | symbol)[] = ["404", "login"];
+    const whiteList: (string | symbol)[] = [baseRouteName.NOT_FOUND, baseRouteName.LOGIN];
     const hasWhite: boolean = whiteList.includes(to.name);
     if (store.token || hasWhite) {
         next();
