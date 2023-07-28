@@ -128,8 +128,8 @@ let loginForm = reactive({
 const loginIn = async () => {
     try {
         const store = mainStore();
-        let data = await login(loginForm);
-        store.setToken(data.token || "temp token");
+        // let data = await login(loginForm);
+        store.setToken("temp token");
         router.push("/");
     } catch (e) {
         console.log(e, "error");
